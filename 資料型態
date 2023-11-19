@@ -1,1 +1,60 @@
+儲存空間換算表
+1 b = 8 bits 
 
+數值
+  位元
+    0, 1, NULL：>= 1 b (視長度可變)
+  整數
+    tinyint: 1 b, 0~255
+    smallint: 2 b, -32768~32767
+    int: 4 b
+    bigint: 8 b
+  精確數
+    decimal(precision, scale)，舊版用numeric(p,s)
+    Eg. decimal(8,4)可存9999.9999，全部8位數，4位小數
+  浮點數
+    float(n): 4 b [n = 1 to 24] or 8 b [n = 25 to 53]
+    real
+  貨幣 [MSSQL限定]
+    money: 4 b
+    smallmoney: 8 b
+
+日期
+  datetime: 8 b, 'YYYY-MM-DD HH:NN:SS'
+  smalldatetime: 4 b, 'YYYY-MM-DD HH:NN'
+  date: 3 b, 'YYYY-MM-DD'
+  time(3), 'HH:NN:SS.sss'
+  datetime2(3), 'YYYY-MM-DD HH:NN:SS.sss'
+  datetimeoffset(3), 'YYYY-MM-DD HH:NN:SS.sss ± 08:00'
+
+字串 'string'
+  char(n): n b, 不足部分填入空格，常用於5 b以下
+  varchar(n): n b
+  varchar(max): <= 2 Gb, 將取代text
+統一字碼字串 N'string'
+  nchar(n): 2n b, 不足部分填入空格
+  nvarchar(n): 2n b
+  nvarchar(max): <= 2 Gb, 將取代ntext
+
+char 存資料有固定長度，並且都為英文數字。
+nchar 存資料有固定長度，但不確定是否都是英文數字。
+varchar 存資料沒有固定長度，並且都為英文數字。
+nvarchar 存資料沒有固定長度，且不確定是否皆為英文數字。
+
+二進位字串 = 未解碼位元串流
+  binary(n): n b，不足部分填入0x00
+  varbinary(n): n b
+  varbinary(max): <= 2 Gb, 將取代image
+
+標記
+  timestamp: 8 b
+  rowversion: 8 b
+  uniqueidentifier: 16 b, 用NEWIDS()或NEWSWQUENTIAL()產生
+空間
+  geography適用球體運算
+  geometry適用平面運算，適用經過投影過後的座標
+
+自訂型態
+  CREATE TYPE abc FROM varchar(10) NOT NULL
+  
+  
