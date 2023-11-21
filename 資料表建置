@@ -1,17 +1,46 @@
+--- Basic
 USE Tb01
 GO
 CREATE TABLE Tb01 (
-  id NOT NULL PRIMARY KEY, 
+  id NOT NULL IDENTITY PRIMARY KEY, 
   city varchar(5) DEFAULT 'Taipei',
   zip int UNIQUE, 
   address varchar(30), 
   revenue money
 )
 
---- UNIQUE 可允許一個空值，每個table可設多個候選鍵
+--- UNIQUE 可允許1個空值，每個table可設多個候選鍵
 --- PRIMARY KEY 不允許空值，每個table只設1個主鍵
---- IDENTITY(start, end) 自動編號，每個table只能設定1個
+--- IDENTITY(start, end) 自動編號，每個table只能設定1個，預設從1開始
 
---- Computed Column
---- Sparse Column
+--- 計算欄位 Computed Column: avg_price AS amount / qty
+--- 疏鬆欄位 Sparse Column: remark varchar(10) SPARSE
+
+--- Advanced: 建立複合鍵
+CREATE TABLE Tb02 (
+  userId varchar(5), 
+  orderNo varchar(5),
+  content varchar(10),
+  PRIMARY KEY(userId, orderNo)
+)
+
+--- Advanced: 建立欄位限制
+CREATE TABLE Tb03 (
+  userId varchar(5), 
+  orderNo varchar(5),
+  qty int,
+  subtotal int
+  CHECK ((qty >= 0) AND (subtotal > 0))
+)
+
+--- Advanced: 建立外來鍵關聯限制
+CREATE TABLE Tb04 (
+  userId varchar(5), 
+  orderNo varchar(5),
+  itemNo varchar(5),
+  companyId int,
+  FOREIGN KEY (itemNo) REFERENCES Tb05 (id),
+  FOREIGN KEY (companyId) REFERENCES Tb06 (id)
+)
+
 
