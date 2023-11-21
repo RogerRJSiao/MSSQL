@@ -1,1 +1,17 @@
+USE Tb01
+GO
+CREATE TABLE Tb01 (
+  id NOT NULL PRIMARY KEY, 
+  city varchar(5) DEFAULT 'Taipei',
+  zip int UNIQUE, 
+  address varchar(30), 
+  revenue money
+)
+
+--- UNIQUE 可允許一個空值，每個table可設多個候選鍵
+--- PRIMARY KEY 不允許空值，每個table只設1個主鍵
+--- IDENTITY(start, end) 自動編號，每個table只能設定1個
+
+--- Computed Column
+--- Sparse Column
 
