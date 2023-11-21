@@ -32,6 +32,8 @@ ALTER TABLE Tb01
 ALTER TABLE Tb01
   ALTER COLUMN tel char(4) NOT NULL
 
+--- Basic: 刪除資料表
+DROP TABLE Tb01
 
 --- Advanced: 建立複合鍵
 CREATE TABLE Tb02 (
@@ -41,14 +43,25 @@ CREATE TABLE Tb02 (
   PRIMARY KEY(userId, orderNo)
 )
 
---- Advanced: 建立欄位限制
+--- Advanced: 建立欄位限制(1.欄位層級, 2.資料表層級)
 CREATE TABLE Tb03 (
   userId varchar(5), 
   orderNo varchar(5),
-  qty int,
-  subtotal int
-  CHECK ((qty >= 0) AND (subtotal > 0))
+  qty int
+    CONSTRAINT ck_qty
+    CHECK (qty >= 0),
+  subtotal int,
+  CHECK ((subtotal > 0) AND (qty*subtotal > 0))
 )
+
+--- Advanced: 刪除欄位限制
+ALTER TABLE Tb03
+  ADD CONSTRAINT orderNo
+    CHECK orderNo <> ''
+
+--- Advanced: 刪除欄位限制
+ALTER TABLE Tb03
+  DROP CONSTRAINT ck_qty
 
 --- Advanced: 建立外來鍵關聯限制
 CREATE TABLE Tb04 (
@@ -60,4 +73,12 @@ CREATE TABLE Tb04 (
   FOREIGN KEY (companyId) REFERENCES Tb06 (id)
 )
 
+-- Advanced: 建立區域暫存表 local temporary table (自刪於建表的使用者離線)
+CREATE TABLE #Tb05 (
+  ...
+)
 
+-- Advanced: 建立全域暫存表 golbal temporary table (自刪於所有使用者離線)
+CREATE TABLE ##Tb06 (
+  ...
+)
