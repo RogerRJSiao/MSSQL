@@ -1,1 +1,49 @@
+--- SELECT clause
+SELECT DISTINCT 
+SELECT DISTINCT TOP
+SELECT TOP 25  --- the first 25 
+SELECT TOP 25 PERCEPT  --- the first 25%
+SELECT TOP 3 WITH TIES ... ORDER BY ...  --- 取前三筆，最後一筆也列出平手者
 
+--- LIKE 
+WHERE id LIKE '[C-D]%'  --- id字首 C、D
+WHERE id LIKE '[^C-D]%'  --- id字首非 C、D
+WHERE id LIKE '_E%'  --- id為1字元+E+0~n字元
+
+--- NOT
+NOT LIKE '%j%'
+NOT BETWEEN '2022-1-1' AND '2022-12-31'
+NOT IN (1,2,3)
+
+--- 欄位規格 Column specification: 1.資料表欄位 2.計算值欄位
+--- AS
+
+--- 內部合併 1.明示語法 2.隱含語法
+... FROM Tb01 INNER JOIN Tb02 ON Tb01.id=Tb02.id
+... FROM Tb01, Tb02 WHERE Tb01.id=Tb02.id
+
+--- 自身合併 self join: 使用別名
+
+--- 交叉合併 cross join: Cartesian Product
+
+--- 摘要查詢 summary query
+COUNT(*)  --- all records containing null
+COUNT(col)  --- records without null in this column
+SUM(col)
+AVG(col)
+MAX(col)
+MIN(col)
+
+--- 分群 GROUP BY
+GROUP BY ROLLUP (col1, col2, col3)  --- 從右向左移動，減少建立群組和彙總的資料行運算式數目。
+GROUP BY CUBE (a, b)  --- 結果會有 (a, b)、(NULL, b)、(a, NULL) 和 (NULL, NULL) 這些唯一值的群組。
+GROUP BY GROUPING SETS ( ROLLUP (Country, Region), CUBE (Country, Region) );  --- 等於2結果聯集
+GROUP BY GROUPING SETS ( (col1, col2, col3), (col1, col2), (col1), () );   --- 等於GROUP BY ROLLUP (col1, col2, col3)
+GROUP BY col1, col2, col3 WITH ROLLUP
+GROUP BY a, b WITH CUBE
+
+--- 常用函數
+DATEDIFF(year, birthday, GETDATE())  --- 年齡
+
+
+--- Advanced: View 檢視表
