@@ -1,4 +1,4 @@
---- Basic
+--- Basic: 新增資料表
 USE Tb01
 GO
 CREATE TABLE Tb01 (
@@ -15,6 +15,23 @@ CREATE TABLE Tb01 (
 
 --- 計算欄位 Computed Column: avg_price AS amount / qty
 --- 疏鬆欄位 Sparse Column: remark varchar(10) SPARSE
+
+--- Basic: 更名資料表
+EXEC sp_rename 'Tb01', 'Tb001'
+
+--- Basic: 新增欄位
+ALTER TABLE Tb01
+  ADD tel char(2) NOT NULL,
+    mobile char(2) NOT NULL
+
+--- Basic: 刪除欄位
+ALTER TABLE Tb01
+  DROP tel char(2) NOT NULL
+
+--- Basic: 更名欄位
+ALTER TABLE Tb01
+  ALTER COLUMN tel char(4) NOT NULL
+
 
 --- Advanced: 建立複合鍵
 CREATE TABLE Tb02 (
