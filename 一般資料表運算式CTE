@@ -1,8 +1,19 @@
 --- CTE, common table expression
---- 建立一至多個暫存的 table，用於未來 SELECT 查詢
---- 遞迴查詢 recursive CTE
 
+--- 建立一至多個暫存的 table，用於未來 SELECT 查詢
 WITH T(col01, col02, ...) AS (
   
+)
+SELECT * FROM T
+
+--- 遞迴查詢 recursive CTE
+WITH T(col01, col02, ...) AS (
+  --- 錨點成員 anchor member
+  SELECT
+  UNION ALL
+  --- 遞迴成員 recursive member
+  SELECT
+  SELECT
+
 )
 SELECT * FROM T
