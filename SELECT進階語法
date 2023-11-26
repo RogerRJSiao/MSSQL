@@ -15,7 +15,7 @@ WHERE id LIKE '_E%'  --- id為1字元+E+0~n字元
 --- 資料前處理
 SELECT ISNULL(tel, '無電話') AS tel FROM tb01  --- 填補空值
 UPDATE tb01 SET col01 = CONCAT('AddWords_' , col01)  --- 更改特定欄位紀錄，如加上市話04代碼
-
+CREATE VIEW
 
 --- NOT
 NOT LIKE '%j%'
@@ -68,3 +68,19 @@ DATEDIFF(year, birthday, GETDATE())  --- 年齡
 CAST(col AS varchar(2))  --- 強制轉型
 
 --- Advanced: View 檢視表
+1.存在記憶體，簡化查詢
+2.不建議來 Upd, Del，保留原表資料完整性
+3.隱藏或過濾資料，但不排序
+4.隱藏欄位名稱，提高資安程度
+CREATE VIEW (col01, col02, col03...)
+AS
+SELECT...
+
+--- Advanced: stored procedure 預存程序
+1.存在記憶體，簡化查詢，但關連到的 table 管理不易
+2.不建議來 Upd, Del，保留原表資料完整性
+3.可隱藏或過濾資料，但不排序 record
+4.隱藏欄位名稱，提高資安程度
+CREATE VIEW (col01, col02, col03...)
+AS
+SELECT...
