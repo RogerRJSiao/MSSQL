@@ -1,14 +1,19 @@
---- SELECT clause
+--- 顯示特定筆數
 SELECT DISTINCT 
 SELECT DISTINCT TOP
 SELECT TOP 25  --- the first 25 
 SELECT TOP 25 PERCEPT  --- the first 25%
 SELECT TOP 3 WITH TIES ... ORDER BY ...  --- 取前三筆，最後一筆也列出平手者
+SELECT ... ORDER BY ... OFFSET 2 ROWS  --- 先排序，再跳過2個row，取出後面全部
+SELECT ... ORDER BY ... OFFSET 2 ROWS FETCH NEXT 3 ROWS ONLY  --- 先排序，再跳過2個row，取出3個row
 
 --- LIKE 
 WHERE id LIKE '[C-D]%'  --- id字首 C、D
 WHERE id LIKE '[^C-D]%'  --- id字首非 C、D
 WHERE id LIKE '_E%'  --- id為1字元+E+0~n字元
+
+--- 資料前處理
+SELECT ISNULL(tel, '無電話') AS tel FROM tb01  --- 填補空值
 
 --- NOT
 NOT LIKE '%j%'
@@ -58,6 +63,6 @@ GROUP BY a, b WITH CUBE
 
 --- 常用函數
 DATEDIFF(year, birthday, GETDATE())  --- 年齡
-
+CAST(col AS varchar(2))  --- 強制轉型
 
 --- Advanced: View 檢視表
