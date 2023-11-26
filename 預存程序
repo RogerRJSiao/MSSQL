@@ -1,1 +1,17 @@
 --- 預存程序 stored procedures
+-- 建立預存程序: DB > 可程式性 > 預存程序
+CREATE PROC[EDURE] spName01
+  WITH RECOMPILE, ENCRYPTION
+AS
+BEGIN
+  ...
+  ...
+END
+GO
+-- 執行預存程序
+DECLARE @proc_name char(32)
+SET @proc_name = 'spName01'
+EXEC[UTE] @proc_name
+-- 建立暫存預存程序: 存在 tempdb 系統
+CREATE PROC #spName02 AS ...  -- 區域暫存變數
+CREATE PROC ##spName03 AS ...  -- 全域暫存變數
