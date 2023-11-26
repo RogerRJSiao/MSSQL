@@ -13,4 +13,18 @@ INTO newtable [IN externaldb]
 FROM oldtable
 WHERE condition
 
-
+--- 整理原表，兩 table 資料比對，可用作更新 table
+MERGE tb01
+    USING tb02
+    ON tb01.col01 = tb02.col02
+    [ WHEN MATCHED [ AND <clause_search_condition> ]
+        THEN <merge_matched> ]
+    [ WHEN MATCHED
+        THEN <merge_matched> ]
+    [ WHEN NOT MATCHED [ AND <clause_search_condition> ]
+        THEN <merge_not_matched> ]
+    [ WHEN NOT MATCHED BY TARGET [ AND <clause_search_condition> ]   --- 僅存在來源資料表
+        THEN <merge_matched> ] [ ...n ]
+    [ WHEN NOT MATCHED BY SOURCE [ AND <clause_search_condition> ]   --- 僅存在目標資料表
+        THEN <merge_matched> ] [ ...n ]
+;
