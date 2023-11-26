@@ -11,6 +11,8 @@ DECLARE @var01 int = 100,  -- 有初值，純量變數 scaler variables
         @var02 varchar(2),  -- 無初值，純量變數 
         @var03 table (col01 int, col02 varchar(2)) -- 資料表變數 table variables
 SET @var01 = (subquery)
+SET @var05 varchar(2) = IIF(判斷式, '結果A', '結果B')  -- 若為FALSE傳回'結果B'
+SET @var06 varchar(2) = CHOOSE(@type, '結果A', '結果B', '結果C', '結果D')  -- 若@type=3傳回'結果D'
 
 --- 系統函數 system functions
 SET @myIdentity = @@IDENTITY
@@ -54,6 +56,7 @@ GOTO BREAK_POINT
 
 BREAK_POINT:
 ...
+
 
 
 --- 預存程序 stored procedures
