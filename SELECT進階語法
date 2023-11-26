@@ -34,6 +34,20 @@ AVG(col)
 MAX(col)
 MIN(col)
 
+--- 子查詢 X 邏輯運算子
+WHERE col IN (values from subquery)  
+  --- 與 = ANY() 可互換
+WHERE col NOT IN (values from subquery)  
+  --- 與 <> ALL() 可互換
+WHERE col >= ALL(values from subquery)  
+  --- 用 >= ALL 取得最高分，<= ALL 取得最低分
+WHERE col > ANY(values from subquery)  
+  --- 用 > ANY 取得不是最低分，< ANY 取得不適最高分，= ANY 取得存在，<> ANY 取得不存在
+WHERE col > SOME(values from subquery)  
+  --- 與 ANY() 可互換
+WHERE EXISTS (subquery)
+  --- 逐一比對
+
 --- 分群 GROUP BY
 GROUP BY ROLLUP (col1, col2, col3)  --- 從右向左移動，減少建立群組和彙總的資料行運算式數目。
 GROUP BY CUBE (a, b)  --- 結果會有 (a, b)、(NULL, b)、(a, NULL) 和 (NULL, NULL) 這些唯一值的群組。
