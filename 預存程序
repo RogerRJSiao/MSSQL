@@ -1,17 +1,46 @@
 --- 預存程序 stored procedures
 -- 建立預存程序: DB > 可程式性 > 預存程序
 CREATE PROC[EDURE] spName01
-  WITH RECOMPILE, ENCRYPTION
+  WITH RECOMPILE, ENCRYPTION  -- 編譯, 加密
 AS
 BEGIN
   ...
   ...
 END
 GO
+
+CREATE PROC[EDURE] spName02
+  @para01 varchar(1),  -- 若有參數傳遞放這裡
+  @para02 int = 30,
+  @para03 bonus = 3000
+AS
+BEGIN
+  ...
+  ...
+  RETURN @para05  -- 回傳參數
+END
+GO
+
+-- RETURN 也可以用在回傳錯誤訊息
+SET @errorNo = @@ERROR
+IF @errorNo <> 0
+  BEGIN
+    IF ...
+    ELSE ...
+  RETURN @errorNo
+
 -- 執行預存程序
 DECLARE @proc_name char(32)
 SET @proc_name = 'spName01'
-EXEC[UTE] @proc_name
+EXEC[UTE] @proc_name  -- 無參數傳遞
+
+EXEC spName02 @para01 = 'F'  -- 有參數傳遞
+或 EXEC spName02 'M', DEFAULT, 50000  -- 有參數傳遞，預設或取代
+
 -- 建立暫存預存程序: 存在 tempdb 系統
-CREATE PROC #spName02 AS ...  -- 區域暫存變數
-CREATE PROC ##spName03 AS ...  -- 全域暫存變數
+CREATE PROC #spName02 AS ...  -- 區域暫存
+或 CREATE PROC ##spName03 AS ...  -- 全域暫存
+
+-- 刪除預存程序
+DROP PREC spName02
+
