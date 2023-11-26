@@ -1,4 +1,4 @@
---- Transact-SQL 是 ANSI-SQL結構化查詢語言可程式化的擴充版本
+--- Transact-SQL 是 ANSI-SQL 結構化查詢語言可程式化的擴充版本
 
 GO  -- 批次處理 batches: 根據單一執行單位/執行計畫 execution plan
 USE db  -- 切換資料庫
