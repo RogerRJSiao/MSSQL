@@ -1,8 +1,14 @@
 --- 資料所有欄位皆為 IDENTITY, NULL, DEFAULT
 INSERT INTO tb01 VALUES (DEFAULT)
 
---- 資料取自其他 table
+--- 不建表，資料取自其他 table
 INSERT INTO table2 (column1, column2, column3, ...)
 SELECT column1, column2, column3, ...
 FROM table1
 WHERE condition
+
+--- 建新表，資料取自其他 table
+SELECT column1, column2, column3, ...
+INTO newtable [IN externaldb]
+FROM oldtable
+WHERE condition;
