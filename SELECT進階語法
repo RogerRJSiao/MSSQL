@@ -14,6 +14,8 @@ WHERE id LIKE '_E%'  --- id為1字元+E+0~n字元
 
 --- 資料前處理
 SELECT ISNULL(tel, '無電話') AS tel FROM tb01  --- 填補空值
+UPDATE tb01 SET col01 = CONCAT('AddWords_' , col01)  --- 更改特定欄位紀錄，如加上市話04代碼
+
 
 --- NOT
 NOT LIKE '%j%'
