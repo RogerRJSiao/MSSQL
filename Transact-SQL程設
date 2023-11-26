@@ -32,7 +32,7 @@ BEGIN
   ...
   ...  -- BREAK 或 CONTINUE
 END
-
+--- 流程控制在邏輯區塊有兩個以上的指令 
 IF @cnt >= 5
 BEGIN
   ...
@@ -43,6 +43,30 @@ BEGIN
   ...
   ...
 END
+--- 流程控制在邏輯區塊有兩個以上的指令
+BEGIN TRY  
+    -- Generate a divide-by-zero error.  
+    SELECT 1/0;  
+END TRY  
+BEGIN CATCH  
+    SELECT  
+        ERROR_NUMBER() AS ErrorNumber,  
+        ERROR_SEVERITY() AS ErrorSeverity,  
+        ERROR_STATE() AS ErrorState,  
+        ERROR_PROCEDURE() AS ErrorProcedure,  
+        ERROR_LINE() AS ErrorLine,  
+        ERROR_MESSAGE() AS ErrorMessage;  
+END CATCH;  
+GO
+
+--- 流程控制在邏輯區塊有兩個以上的指令，例外拋出
+BEGIN TRY
+...
+...
+END TRY
+BEGIN CATCH
+  THROW 
+END CATCH
 
 --- 流程控制中斷指令
 RETURN
