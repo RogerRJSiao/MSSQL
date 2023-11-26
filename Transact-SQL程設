@@ -1,1 +1,61 @@
+--- Transact-SQL 是 ANSI-SQL結構化查詢語言可程式化的擴充版本
 
+GO  -- 批次處理 batches: 根據單一執行單位/執行計畫 execution plan
+USE db  -- 切換資料庫
+PRINT @var01  -- 非NULL會被印出
+
+--- 自訂函數 user defined functions
+@var01  -- 區域變數
+@@var02  -- 全域變數
+DECLARE @var01 int = 100,  -- 有初值，純量變數 scaler variables
+        @var02 varchar(2),  -- 無初值，純量變數 
+        @var03 table (col01 int, col02 varchar(2)) -- 資料表變數 table variables
+SET @var01 = (subquery)
+
+--- 系統函數 system functions
+SET @myIdentity = @@IDENTITY
+SET @myRowCnt = @@ROWCOUNY
+SET @myError = @@myERROR
+SET @myServer = @@SERVERNAME
+
+--- 資料類型轉換 type conversion
+-- 1.隱含轉換 implicit
+-- 2.強制轉換 explicit
+CAST('2023-06-30' AS datetime)
+CONVERT(datetime, '2023-06-30')
+
+--- 流程控制在邏輯區塊有兩個以上的指令 
+WHILE @cnt < 5
+BEGIN
+  ...
+  ...  -- BREAK 或 CONTINUE
+END
+
+IF @cnt >= 5
+BEGIN
+  ...
+  ...
+END
+ELSE
+BEGIN
+  ...
+  ...
+END
+
+--- 流程控制中斷指令
+RETURN
+
+--- 延遲
+WAITFOR DELAY '00:01:30'  -- 延遲1.5分鐘
+WAITFOR TIME '13:30'  -- 延遲至下午1點半
+
+--- 跳出兩層以上巢狀迴圈
+GOTO BREAK_POINT
+
+BREAK_POINT:
+...
+
+
+--- 預存程序 stored procedures
+
+--- 觸發程序 triggers
