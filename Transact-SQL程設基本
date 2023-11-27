@@ -26,6 +26,7 @@ db > 可程式性 > 函數 > 新增
 
 -- 3.多重陳述式資料表函數 multi-statement table-valued fn: 傳回多重 T-SQL 產生的 table
 
+
 --- 系統函數 system functions
 SET @myIdentity = @@IDENTITY
 SET @myRowCnt = @@ROWCOUNY
