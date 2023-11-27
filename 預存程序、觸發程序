@@ -1,4 +1,4 @@
---- 預存程序 stored procedures
+=== 預存程序 stored procedures ===
 -- 建立預存程序: DB > 可程式性 > 預存程序
 CREATE PROC[EDURE] spName01
   WITH RECOMPILE, ENCRYPTION  -- 編譯, 加密
@@ -44,3 +44,22 @@ CREATE PROC #spName02 AS ...  -- 區域暫存
 -- 刪除預存程序
 DROP PREC spName02
 
+
+=== 觸發程序 trigger ===
+-- 使用時機: 自動更改或刪除相互關聯的資料、加強驗證具有商業規則欄位、比對資料表更改前後狀態及完整性
+-- 觸發種類: 1.DML觸發 [自動生成 Deleted 或 Inserted] 2.DDL觸發  3.LOGON觸發
+-- 可用於 table 或 view
+
+CREATE TRIGGER triName01
+ON tb01
+FOR INSERT
+AS
+BEGIN
+  ...
+END  
+
+-- AFTER 觸發程序
+
+
+
+--- 
