@@ -4,7 +4,7 @@ GO  -- 批次處理 batches: 根據單一執行單位/執行計畫 execution pla
 USE db  -- 切換資料庫
 PRINT @var01  -- 非NULL會被印出
 
---- 自訂函數 user defined functions
+--- 定義變數 
 @var01  -- 區域變數
 @@var02  -- 全域變數
 DECLARE @var01 int = 100,  -- 有初值，純量變數 scaler variables
@@ -13,6 +13,18 @@ DECLARE @var01 int = 100,  -- 有初值，純量變數 scaler variables
 SET @var01 = (subquery)
 SET @var05 varchar(2) = IIF(判斷式, '結果A', '結果B')  -- 若為FALSE傳回'結果B'
 SET @var06 varchar(2) = CHOOSE(@type, '結果A', '結果B', '結果C', '結果D')  -- 若@type=3傳回'結果D'
+
+--- 自訂函數 VS 預存程序
+自訂函數：可傳回任何資料類型，無法傳回值，可用在運算式，不允許 CUD  
+預存程序：只能傳回整數狀態值，可用 OUTPUT 傳回值，不能用在運算式，允許 CUD
+
+--- 自訂函數 UDF, user defined function 有 3 種
+db > 可程式性 > 函數 > 新增
+-- 1.純量值函數 scalar-valued fn: 傳回單值
+
+-- 2.嵌入資料表值函數 inline table-valued fn: 傳回單一 SELECT 產生的 table
+
+-- 3.多重陳述式資料表函數 multi-statement table-valued fn: 傳回多重 T-SQL 產生的 table
 
 --- 系統函數 system functions
 SET @myIdentity = @@IDENTITY
