@@ -21,11 +21,49 @@ SET @var06 varchar(2) = CHOOSE(@type, '結果A', '結果B', '結果C', '結果D'
 --- 自訂函數 UDF, user defined function 有 3 種
 db > 可程式性 > 函數 > 新增
 -- 1.純量值函數 scalar-valued fn: 傳回單值
+CREATE FUNCTION fnMyFunction01
+  (@num int, ...)
+  RETURNS int
+AS
+BEGIN
+  DECLARE @level int
+  ...
+  RETURN @level
+END
+
+dbo.fnMyFunction01(50, ...)  -- 呼叫自訂函數
 
 -- 2.嵌入資料表值函數 inline table-valued fn: 傳回單一 SELECT 產生的 table
+CREATE FUNCTION fnMyFunction02
+        (@Parameter1 DATATYPE, @Parameter2 DATATYPE, ...)
+        RETURNS TABLE
+AS
+BEGIN
+  ...
+  RETURN (subquery)
+END
+
+SELECT * FROM dbo.fnMyFunction02('AAA', 50, ...)  -- 呼叫自訂函數
 
 -- 3.多重陳述式資料表函數 multi-statement table-valued fn: 傳回多重 T-SQL 產生的 table
+CREATE FUNCTION fnMyFunction03 ()
+  RETURNS @CustomersWithOrders TABLE 
+    (CustomerID int, ContactName nvarchar(50), Orderid int, orderdate date, city varchar(50))
+AS
+BEGIN
+   INSERT INTO @CustomersWithOrders
+   SELECT c.customer_id, c.ContactName, order_id ,order_date,city
+   FROM Customer c
+   JOIN Orders o ON c.customer_id = o.customer_id
+  
+   RETURN
+END
 
+SELECT * FROM dbo.fnMyFunction03( 50, 'AAA', 1235, '2023-11-28', 'Taichung')  -- 呼叫自訂函數
+
+-- 修改、刪除自訂函數
+ALTER FUNCTION fnMyFunction04 ...
+DROP FUNCTION fnMyFunction04
 
 --- 系統函數 system functions
 SET @myIdentity = @@IDENTITY
