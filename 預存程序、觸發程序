@@ -59,7 +59,54 @@ BEGIN
 END  
 
 -- AFTER 觸發程序
+CREATE TRIGGER triName02
+ON tb02
+AFTER INSERT  -- 只會新增至 Inserted
+AS
+BEGIN
+  ...
+  ...
+  RAISERROR(...)
+  ROLLBACK [TRAN]
+END
 
+CREATE TRIGGER triName03
+ON tb03
+AFTER UPDATE  -- 新增至 Inserted (更新後資料)、Deleted (更新前資料)
+AS
+BEGIN
+  ...
+  ...
+  RAISERROR(...)
+  ROLLBACK [TRAN]
+END
 
+CREATE TRIGGER triName04
+ON tb04
+AFTER DELETE  -- 新增至 Deleted (更新前資料)
+AS
+BEGIN
+  ...
+  ...
+  RAISERROR(...)
+  ROLLBACK [TRAN]
+END
 
---- 
+--- 修改 DML 觸發
+ALTER TRIGGER triName05
+ON tb05
+AFTER DELETE  --- UPDATE, INSERT  
+AS
+BEGIN
+  ...
+  ...
+  RAISERROR(...)
+  ROLLBACK [TRAN]
+END
+
+--- 停用 DML 觸發
+ALTER TABLE tb06 
+DISABLE TRIGGER triName06, triName07
+
+--- 刪除 DML 觸發
+DROP TABLE triName08
